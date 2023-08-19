@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+app.locals.pretty = true;
+
 app.set('view engine', 'jade');
 app.set('views','./views');
 
@@ -17,7 +19,7 @@ app.get('/route', (req, res) => {
 });
 
 app.get('/template', (req, res) => {
-    res.render('temp');
+    res.render('temp', {time:Date(), _title:'Jade Template'});
 });
 
 app.listen(port, () => {
