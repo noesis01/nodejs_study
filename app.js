@@ -16,6 +16,10 @@ app.get('/route', (req, res) => {
     res.send('nodejs router');
 });
 
+app.get('/template', (req, res) => {
+    res.render('temp');
+});
+
 app.listen(port, () => {
     console.log(`${port} connected!`);
 });
