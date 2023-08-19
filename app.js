@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 app.set('view engine', 'jade');
+app.set('views','./views');
 
 const port = 9000;
 const host = '127.0.0.1';
