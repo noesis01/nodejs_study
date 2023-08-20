@@ -14,11 +14,22 @@ app.get('/topic/new', (req, res) => {
     res.render('new');
 });
 
+app.get('/topic', (req, res) => {
+    fs.readdir('data', (err, files) =>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        }
+        res.render('view', {topics:files});
+    });
+});
+
 app.post('/topic', (req, res) => {
     var title = req.body.title
     var des = req.body.description;
     fs.writeFile('./data/'+title, des, (err) => {
         if(err){
+            console.log(err);
             res.status(500).send('Internal server Error');
         }
         res.send('Success!');
