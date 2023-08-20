@@ -3,8 +3,16 @@ html
     head
         meta(charset='utf8')
     body
-        h1 Server Side JavaScript 
+        h1 
+            a(href='/topic') Server Side JavaScript 
         ul 
             each topic in topics
                 li 
                     a(href='/topic/'+topic)= topic
+        article
+            h2= title
+            p
+            = des
+        div 
+            a(href='/topic/new') new article
+        

@@ -11,16 +11,35 @@ var fs = require('fs');
 const port = 8880;
 
 app.get('/topic/new', (req, res) => {
-    res.render('new');
-});
-
-app.get('/topic', (req, res) => {
     fs.readdir('data', (err, files) =>{
         if(err){
             console.log(err);
             res.status(500).send('Internal Server Error');
         }
-        res.render('view', {topics:files});
+    res.render('new', {topics:files});
+});
+});
+
+app.get(['/topic','/topic/:id'], (req, res) => {
+    fs.readdir('data', (err, files) =>{
+        if(err){
+            console.log(err);
+            res.status(500).send('Internal Server Error');
+        }
+        var id = req.params.id;
+        if(id) {
+        fs.readFile('./data/'+id, 'utf8',(err, data) => {
+            if(err){
+                console.log(err);
+                res.status(500).send('Internal Server Error');
+            }
+            var text = data;
+            res.render('view', {topics:files, title:id, des:text});
+        });
+        }
+        else {
+        res.render('view', {topics:files, title:'Welcome', des:'Hello, Nodejs'});
+        }
     });
 });
 
@@ -32,7 +51,7 @@ app.post('/topic', (req, res) => {
             console.log(err);
             res.status(500).send('Internal server Error');
         }
-        res.send('Success!');
+        res.redirect('/topic/'+title);
     });
 });
 
